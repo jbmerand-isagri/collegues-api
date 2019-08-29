@@ -13,6 +13,32 @@ public class Collegue {
 	/**
 	 * Constructor
 	 * 
+	 */
+	public Collegue() {
+		super();
+	}
+
+	/**
+	 * Constructor
+	 * 
+	 * @param nom
+	 * @param prenoms
+	 * @param email
+	 * @param dateDeNaissance
+	 * @param photoUrl
+	 */
+	public Collegue(String nom, String prenoms, String email, LocalDate dateDeNaissance, String photoUrl) {
+		super();
+		this.nom = nom;
+		this.prenoms = prenoms;
+		this.email = email;
+		this.dateDeNaissance = dateDeNaissance;
+		this.photoUrl = photoUrl;
+	}
+
+	/**
+	 * Constructor
+	 * 
 	 * @param matricule
 	 * @param nom
 	 * @param prenoms

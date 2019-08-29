@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +24,7 @@ public class CollegueController {
 
 	CollegueService collegueService = new CollegueService();
 
-	@RequestMapping("/collegues")
+	@RequestMapping(path = "/collegues", method = RequestMethod.GET)
 	@ResponseBody
 	public List<String> reqParamNom(@RequestParam String nom) {
 
@@ -35,7 +37,7 @@ public class CollegueController {
 
 	@RequestMapping(path = "/collegues/{matricule}", method = RequestMethod.GET)
 	@ResponseBody
-	public Collegue ageBilelM(@PathVariable String matricule) {
+	public Collegue reqMatricule(@PathVariable String matricule) {
 		// ou @PathVariable(name = "ageBilel") String aB
 		Collegue collegue = null;
 
@@ -46,6 +48,13 @@ public class CollegueController {
 	@ExceptionHandler(CollegueNonTrouveException.class)
 	public ResponseEntity<String> handleException(CollegueNonTrouveException e) {
 		return ResponseEntity.status(404).body("Erreur : Ce matricule ne correspond à aucun collègue :/");
+	}
+
+	@PostMapping("/collegues")
+	@ResponseBody
+	public Collegue reqAjoutCollegue(@RequestBody Collegue collegue) {
+		Collegue collegueAjoute = collegueService.ajouterUnCollegue(collegue);
+		return collegueAjoute;
 	}
 
 }
