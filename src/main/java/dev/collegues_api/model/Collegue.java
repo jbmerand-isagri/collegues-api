@@ -2,6 +2,9 @@ package dev.collegues_api.model;
 
 import java.time.LocalDate;
 
+/**
+ * Classe représentant un collègue.
+ */
 public class Collegue {
 	private String matricule;
 	private String nom;

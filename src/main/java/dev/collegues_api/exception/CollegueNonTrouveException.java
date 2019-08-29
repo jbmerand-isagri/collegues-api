@@ -1,5 +1,8 @@
 package dev.collegues_api.exception;
 
+/**
+ * Classe de l'exception CollegueNonTrouveException.
+ */
 public class CollegueNonTrouveException extends RuntimeException {
 
 	/**

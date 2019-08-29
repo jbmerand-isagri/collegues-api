@@ -15,12 +15,21 @@ import dev.collegues_api.exception.CollegueNonTrouveException;
 import dev.collegues_api.model.Collegue;
 import dev.collegues_api.utils.CalculateUtils;
 
+/**
+ * Classe gérant l'ensemble des services qui concernent les collègues.
+ */
 public class CollegueService {
 
+	/** LOGGER : Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(CollegueService.class);
 
+	/** data : Map<String,Collegue> */
 	private Map<String, Collegue> data = new HashMap<>();
 
+	/**
+	 * Constructor
+	 * 
+	 */
 	public CollegueService() {
 		// TODO alimenter data avec des données fictives
 		// Pour générer un matricule : `UUID.randomUUID().toString()`
@@ -44,6 +53,12 @@ public class CollegueService {
 
 	}
 
+	/**
+	 * Méthode pour retourner une liste des collègues qui ont le nom précisé.
+	 * 
+	 * @param nomRecherche : String nom du collègue
+	 * @return List<Collegue> Liste des collègues avec ce nom.
+	 */
 	public List<Collegue> rechercherParNom(String nomRecherche) {
 		// TODO retourner une liste de collègues dont le nom est fourni
 		LOGGER.info("rechercheParNom() lancée");
@@ -58,6 +73,14 @@ public class CollegueService {
 		return listeCollegues;
 	}
 
+	/**
+	 * Méthode pour retourner le collègue correspondant au matricule entré.
+	 * 
+	 * @param matriculeRecherche : String matricule du collègue
+	 * @return : Collegue collègue dont le matricule correspond
+	 * @throws CollegueNonTrouveException : Exception si jamais aucun collègue ne
+	 *                                    correspond au matricule.
+	 */
 	public Collegue rechercherParMatricule(String matriculeRecherche) throws CollegueNonTrouveException {
 		// TODO retourner le collègue dont le matricule est fourni
 		// TODO retourner une exception `CollegueNonTrouveException` (à créer)
@@ -82,6 +105,16 @@ public class CollegueService {
 
 	}
 
+	/**
+	 * Méthode pour ajouter un collègue dans la Map de tous les collègues de
+	 * l'application.
+	 * 
+	 * @param collegueAAjouter : Collegue le collègue à ajouter
+	 * @return : Collegue le collègue ajouté
+	 * @throws CollegueInvalideException : Exception dans le cas où des données du
+	 *                                   collègue à ajouter ne répondent pas au
+	 *                                   format imposé.
+	 */
 	public Collegue ajouterUnCollegue(Collegue collegueAAjouter) throws CollegueInvalideException {
 
 		LOGGER.info("ajouterUnCollegue() lancée");
@@ -108,6 +141,14 @@ public class CollegueService {
 
 	}
 
+	/**
+	 * Méthode pour modifier l'email d'un collègue de la Map stockant tous les
+	 * collègues.
+	 * 
+	 * @param matricule : String le matricule du collègue
+	 * @param email     : String le nouvel email du collègue
+	 * @return : Collegue le collègue modifié
+	 */
 	public Collegue modifierEmail(String matricule, String email) {
 
 		// TODO retourner une exception `CollegueNonTrouveException`
@@ -127,6 +168,14 @@ public class CollegueService {
 		return collegue;
 	}
 
+	/**
+	 * Méthode pour modifier l'url de la photo d'un collègue de la Map stockant tous
+	 * les collègues.
+	 * 
+	 * @param matricule : String matricule du collègue
+	 * @param photoUrl  : String le nouvel url de la photo du collègue
+	 * @return : Collegue le collègue amodifié
+	 */
 	public Collegue modifierPhotoUrl(String matricule, String photoUrl) {
 
 		// TODO retourner une exception `CollegueNonTrouveException`

@@ -12,7 +12,7 @@ import dev.collegues_api.exception.CollegueNonTrouveException;
 import dev.collegues_api.model.Collegue;
 
 /**
- * Classe de tests des méthodes de CollegueService
+ * Classe de test des méthodes de CollegueService
  */
 public class CollegueServiceTest {
 

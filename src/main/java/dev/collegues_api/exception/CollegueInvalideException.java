@@ -1,5 +1,8 @@
 package dev.collegues_api.exception;
 
+/**
+ * Classe de l'exception CollegueInvalideException
+ */
 public class CollegueInvalideException extends RuntimeException {
 
 	/**

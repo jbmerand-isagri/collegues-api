@@ -20,12 +20,23 @@ import dev.collegues_api.exception.CollegueNonTrouveException;
 import dev.collegues_api.model.Collegue;
 import dev.collegues_api.service.CollegueService;
 
+/**
+ * Classe représentant le controleur qui concerne les collègues.
+ */
 @Controller
-// @RequestMapping("/jbmerand-collegues-api")
 public class CollegueController {
 
+	/** collegueService : CollegueService */
 	CollegueService collegueService = new CollegueService();
 
+	/**
+	 * Controleur envoyant en réponse HTTP la liste des matricules des collègues qui
+	 * ont le nom spécifié par la requête GET.
+	 * 
+	 * @param nom : String nom du/des collègue(s)
+	 * @return : réponse http contenant List<String> liste des matricules des
+	 *         collègues
+	 */
 	@RequestMapping(path = "/collegues", method = RequestMethod.GET)
 	@ResponseBody
 	public List<String> reqParamNom(@RequestParam String nom) {
@@ -37,6 +48,14 @@ public class CollegueController {
 
 	}
 
+	/**
+	 * Controleur envoyant en réponse HTTP le collègue qui a le matricule spécifié
+	 * par le requête GET.
+	 * 
+	 * @param matricule : String matricule du collègue
+	 * @return : réponse http contenant dans le corps : Collegue le collègue
+	 *         correspondant
+	 */
 	@RequestMapping(path = "/collegues/{matricule}", method = RequestMethod.GET)
 	@ResponseBody
 	public Collegue reqMatricule(@PathVariable String matricule) {
@@ -47,16 +66,37 @@ public class CollegueController {
 		return collegue;
 	}
 
+	/**
+	 * Gestionnaire de l'exception CollegueNonTrouveException
+	 * 
+	 * @param e : CollegueNonTrouveException
+	 * @return : réponse http avec statut d'erreur 404, contenant dans le corps le
+	 *         message d'erreur
+	 */
 	@ExceptionHandler(CollegueNonTrouveException.class)
 	public ResponseEntity<String> handleException(CollegueNonTrouveException e) {
 		return ResponseEntity.status(404).body("Erreur : Ce matricule ne correspond à aucun collègue :/");
 	}
 
+	/**
+	 * Gestionnaire de l'exception CollegueInvalideException
+	 * 
+	 * @param e : CollegueInvalideException
+	 * @return : réponse http avec statut d'erreur 404, contenant dans le corps le
+	 *         message d'erreur
+	 */
 	@ExceptionHandler(CollegueInvalideException.class)
 	public ResponseEntity<String> handleException(CollegueInvalideException e) {
 		return ResponseEntity.status(404).body("Erreur : Données entrées incorrectes :/");
 	}
 
+	/**
+	 * Controleur permettant l'ajout d'un collègue dans la Map des collègues à
+	 * partir des données de la requête POST.
+	 * 
+	 * @param collegue : Collegue collègue à ajouter (JSON)
+	 * @return : réponse http contenant dans son corps le collègue ajouté
+	 */
 	@PostMapping("/collegues")
 	@ResponseBody
 	public Collegue reqAjoutCollegue(@RequestBody Collegue collegue) {
@@ -64,6 +104,15 @@ public class CollegueController {
 		return collegueAjoute;
 	}
 
+	/**
+	 * Controleur permettant la modification d'un collègue dans la Map stockant tous
+	 * les collègues, à partir des données de la requête PATCH.
+	 * 
+	 * @param collegue  : Collegue données partielles pour la modification (JSON)
+	 * @param matricule : String matricule du collègue à modifier
+	 * @return : réponse http contenant dans son corps le collègue après
+	 *         modification
+	 */
 	@PatchMapping("/collegues/{matricule}")
 	@ResponseBody
 	public Collegue partialUpdateName(@RequestBody Collegue collegue, @PathVariable("matricule") String matricule) {
