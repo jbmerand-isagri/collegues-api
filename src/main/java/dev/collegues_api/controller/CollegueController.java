@@ -12,7 +12,7 @@ import dev.collegues_api.model.Collegue;
 import dev.collegues_api.service.CollegueService;
 
 @RestController
-@RequestMapping("/collegues-api")
+@RequestMapping("/jbmerand-collegues-api")
 public class CollegueController {
 
 	@GetMapping("/collegues")
