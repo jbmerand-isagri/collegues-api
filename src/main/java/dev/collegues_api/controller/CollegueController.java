@@ -3,19 +3,20 @@ package dev.collegues_api.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import dev.collegues_api.model.Collegue;
 import dev.collegues_api.service.CollegueService;
 
-@RestController
-@RequestMapping("/jbmerand-collegues-api")
+@Controller
+// @RequestMapping("/jbmerand-collegues-api")
 public class CollegueController {
 
-	@GetMapping("/collegues")
+	@RequestMapping("/collegues")
+	@ResponseBody
 	public List<String> reqParamNom(@RequestParam String nom) {
 		List<Collegue> listeCollegues = null;
 		CollegueService collegueService = new CollegueService();
