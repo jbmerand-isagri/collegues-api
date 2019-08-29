@@ -108,4 +108,60 @@ public class CollegueService {
 
 	}
 
+	public Collegue modifierEmail(String matricule, String email) {
+
+		// TODO retourner une exception `CollegueNonTrouveException`
+		// si le matricule ne correspond à aucun collègue
+		Collegue collegue = rechercherParMatricule(matricule);
+
+		// TODO Vérifier que l'email a au moins 3 caractères et contient `@`
+		// TODO Si la règle ci-dessus n'est pas valide, générer une exception :
+		// `CollegueInvalideException`. avec un message approprié.
+		if (email.length() < 3 || !email.contains("@")) {
+			throw new CollegueInvalideException("Email incorrect : il ne respecte pas le format.");
+		} else {
+			// TODO Modifier le collègue
+			collegue.setEmail(email);
+		}
+
+		return collegue;
+	}
+
+	public Collegue modifierPhotoUrl(String matricule, String photoUrl) {
+
+		// TODO retourner une exception `CollegueNonTrouveException`
+		// si le matricule ne correspond à aucun collègue
+		Collegue collegue = rechercherParMatricule(matricule);
+
+		// TODO Vérifier que la photoUrl commence bien par `http`
+		// TODO Si la règle ci-dessus n'est pas valide, générer une exception :
+		// `CollegueInvalideException`. avec un message approprié.
+		if (!photoUrl.startsWith("http")) {
+			throw new CollegueInvalideException("Url de la photo incorrecte : elle ne commence pas par http.");
+		} else {
+			// TODO Modifier le collègue
+			collegue.setPhotoUrl(photoUrl);
+		}
+
+		return collegue;
+	}
+
+	/**
+	 * Getter
+	 * 
+	 * @return the data
+	 */
+	public Map<String, Collegue> getData() {
+		return data;
+	}
+
+	/**
+	 * Setter
+	 * 
+	 * @param data the data to set
+	 */
+	public void setData(Map<String, Collegue> data) {
+		this.data = data;
+	}
+
 }

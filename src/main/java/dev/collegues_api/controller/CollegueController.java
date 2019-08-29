@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import dev.collegues_api.exception.CollegueInvalideException;
 import dev.collegues_api.exception.CollegueNonTrouveException;
 import dev.collegues_api.model.Collegue;
 import dev.collegues_api.service.CollegueService;
@@ -50,11 +52,30 @@ public class CollegueController {
 		return ResponseEntity.status(404).body("Erreur : Ce matricule ne correspond à aucun collègue :/");
 	}
 
+	@ExceptionHandler(CollegueInvalideException.class)
+	public ResponseEntity<String> handleException(CollegueInvalideException e) {
+		return ResponseEntity.status(404).body("Erreur : Données entrées incorrectes :/");
+	}
+
 	@PostMapping("/collegues")
 	@ResponseBody
 	public Collegue reqAjoutCollegue(@RequestBody Collegue collegue) {
 		Collegue collegueAjoute = collegueService.ajouterUnCollegue(collegue);
 		return collegueAjoute;
+	}
+
+	@PatchMapping("/collegues/{matricule}")
+	@ResponseBody
+	public Collegue partialUpdateName(@RequestBody Collegue collegue, @PathVariable("matricule") String matricule) {
+
+		if (collegue.getEmail() != null) {
+			collegueService.modifierEmail(matricule, collegue.getEmail());
+		}
+		if (collegue.getPhotoUrl() != null) {
+			collegueService.modifierPhotoUrl(matricule, collegue.getPhotoUrl());
+		}
+
+		return collegueService.rechercherParMatricule(matricule);
 	}
 
 }
