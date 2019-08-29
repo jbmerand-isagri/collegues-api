@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import dev.collegues_api.exception.CollegueNonTrouveException;
 import dev.collegues_api.model.Collegue;
 
 public class CollegueService {
@@ -46,7 +47,29 @@ public class CollegueService {
 			}
 
 		}
-		System.out.println("liste des collègues = " + listeCollegues);
 		return listeCollegues;
+	}
+
+	public Collegue rechercherParMatricule(String matriculeRecherche) throws CollegueNonTrouveException {
+		// TODO retourner le collègue dont le matricule est fourni
+		// TODO retourner une exception `CollegueNonTrouveException` (à créer)
+		// si le matricule ne correspond à aucun collègue
+
+		Collegue collegue = null;
+		Boolean isMatriculeTrouve = false;
+
+		for (Map.Entry<String, Collegue> entry : data.entrySet()) {
+			if ((entry.getValue().getMatricule()).equalsIgnoreCase(matriculeRecherche)) {
+				collegue = entry.getValue();
+				isMatriculeTrouve = true;
+			}
+		}
+
+		if (isMatriculeTrouve != true) {
+			throw new CollegueNonTrouveException("Ce matricule ne correspond à aucun collègue.");
+		}
+
+		return collegue;
+
 	}
 }
