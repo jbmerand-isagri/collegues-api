@@ -1,16 +1,28 @@
 package dev.collegues_api.model;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
  * Classe représentant un collègue.
  */
-public class Collegue {
+@Entity
+@Table(name="COLLEGUE")
+public class Collegue implements Serializable {
+
+	@Id
+	@Column(name="col_matricule")
 	private String matricule;
+	@Column(name="col_nom")
 	private String nom;
+	@Column(name="col_prenoms")
 	private String prenoms;
+	@Column(name="col_email")
 	private String email;
+	@Column(name="col_date_de_naissance")
 	private LocalDate dateDeNaissance;
+	@Column(name="col_photo_url")
 	private String photoUrl;
 
 	/**

@@ -3,6 +3,7 @@ package dev.collegues_api.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,7 +28,18 @@ import dev.collegues_api.service.CollegueService;
 public class CollegueController {
 
 	/** collegueService : CollegueService */
-	CollegueService collegueService = new CollegueService();
+	private CollegueService collegueService;
+
+	/**
+	 * Constructor
+	 * 
+	 * @param collegueService
+	 */
+	@Autowired
+	public CollegueController(CollegueService collegueService) {
+		super();
+		this.collegueService = collegueService;
+	}
 
 	/**
 	 * Controleur envoyant en réponse HTTP la liste des matricules des collègues qui
@@ -41,8 +53,7 @@ public class CollegueController {
 	@ResponseBody
 	public List<String> reqParamNom(@RequestParam String nom) {
 
-		List<Collegue> listeCollegues = null;
-		listeCollegues = collegueService.rechercherParNom(nom);
+		List<Collegue> listeCollegues = collegueService.rechercherParNom(nom);
 
 		return listeCollegues.stream().map(c -> c.getMatricule()).collect(Collectors.toList());
 
@@ -59,10 +70,7 @@ public class CollegueController {
 	@RequestMapping(path = "/collegues/{matricule}", method = RequestMethod.GET)
 	@ResponseBody
 	public Collegue reqMatricule(@PathVariable String matricule) {
-		// ou @PathVariable(name = "ageBilel") String aB
-		Collegue collegue = null;
-
-		collegue = collegueService.rechercherParMatricule(matricule);
+		Collegue collegue = collegueService.rechercherParMatricule(matricule);
 		return collegue;
 	}
 
@@ -75,7 +83,7 @@ public class CollegueController {
 	 */
 	@ExceptionHandler(CollegueNonTrouveException.class)
 	public ResponseEntity<String> handleException(CollegueNonTrouveException e) {
-		return ResponseEntity.status(404).body("Erreur : Ce matricule ne correspond à aucun collègue :/");
+		return ResponseEntity.status(404).body(e.getMessage());
 	}
 
 	/**
@@ -87,7 +95,7 @@ public class CollegueController {
 	 */
 	@ExceptionHandler(CollegueInvalideException.class)
 	public ResponseEntity<String> handleException(CollegueInvalideException e) {
-		return ResponseEntity.status(404).body("Erreur : Données entrées incorrectes :/");
+		return ResponseEntity.status(404).body(e.getMessage());
 	}
 
 	/**

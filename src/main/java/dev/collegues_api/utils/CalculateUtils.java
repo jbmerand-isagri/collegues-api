@@ -3,9 +3,12 @@ package dev.collegues_api.utils;
 import java.time.LocalDate;
 import java.time.Period;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Classe utilitaire contenant des méthodes de calcul.
  */
+@Component
 public class CalculateUtils {
 
 	/**
