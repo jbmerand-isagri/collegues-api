@@ -70,8 +70,7 @@ public class CollegueController {
 	@RequestMapping(path = "/collegues/{matricule}", method = RequestMethod.GET)
 	@ResponseBody
 	public Collegue reqMatricule(@PathVariable String matricule) {
-		Collegue collegue = collegueService.rechercherParMatricule(matricule);
-		return collegue;
+		return collegueService.rechercherParMatricule(matricule);
 	}
 
 	/**
@@ -108,8 +107,7 @@ public class CollegueController {
 	@PostMapping("/collegues")
 	@ResponseBody
 	public Collegue reqAjoutCollegue(@RequestBody Collegue collegue) {
-		Collegue collegueAjoute = collegueService.ajouterUnCollegue(collegue);
-		return collegueAjoute;
+		return collegueService.ajouterUnCollegue(collegue);
 	}
 
 	/**

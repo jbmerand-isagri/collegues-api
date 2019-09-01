@@ -17,7 +17,7 @@ public class CalculateUtils {
 	 * @param birthDate : LocalDate la date de naissance de la personne
 	 * @return : int l'âge de la personne
 	 */
-	public static int calculateAge(LocalDate birthDate) {
+	public int calculateAge(LocalDate birthDate) {
 		// validate inputs ...
 		return Period.between(birthDate, LocalDate.now()).getYears();
 	}

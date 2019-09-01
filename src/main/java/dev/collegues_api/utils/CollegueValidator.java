@@ -14,15 +14,20 @@ public class CollegueValidator {
 	/** LOGGER : Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(CollegueValidator.class);
 
-	public Boolean isCollegueInfosCorrectes(Collegue collegue) throws CollegueInvalideException {
-		if (collegue.getNom().length() >= 2 && collegue.getPrenoms().length() >= 2 && collegue.getEmail().length() >= 3
+	@Autowired
+	private CalculateUtils calculateUtils;
+
+	public Boolean isCollegueInfosCorrectes(Collegue collegue) {
+		return collegue.getNom().length() >= 2 && collegue.getPrenoms().length() >= 2 && collegue.getEmail().length() >= 3
 				&& collegue.getEmail().contains("@") && collegue.getPhotoUrl().toLowerCase().startsWith("http")
-				&& CalculateUtils.calculateAge(collegue.getDateDeNaissance()) >= 18) {
-			return true;
-		} else {
-			throw new CollegueInvalideException(
-					"Impossible d'ajouter le collègue. Au moins une de ses données ne répond pas aux attentes.");
-		}
+				&& calculateUtils.calculateAge(collegue.getDateDeNaissance()) >= 18;
 	}
 
+	public Boolean isFormatEmailCorrect(String email) {
+		return email.length() >= 3 && email.contains("@");
+	}
+
+	public Boolean isFormatUrlPhotoCorrect(String url) {
+		return url.startsWith("http");
+	}
 }

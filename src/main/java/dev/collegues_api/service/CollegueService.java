@@ -1,7 +1,6 @@
 package dev.collegues_api.service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import dev.collegues_api.repository.CollegueRepository;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import dev.collegues_api.exception.CollegueInvalideException;
 import dev.collegues_api.exception.CollegueNonTrouveException;
 import dev.collegues_api.model.Collegue;
-import dev.collegues_api.utils.CalculateUtils;
 import dev.collegues_api.utils.CollegueValidator;
 
 /**
@@ -37,7 +35,7 @@ public class CollegueService {
 	 * 
 	 */
 	@Autowired
-	public CollegueService(CalculateUtils calculateUtils, CollegueValidator collegueValidator, CollegueRepository collegueRepository) {
+	public CollegueService(CollegueValidator collegueValidator, CollegueRepository collegueRepository) {
 		this.collegueValidator = collegueValidator;
 		this.collegueRepository = collegueRepository;
 	}
@@ -78,8 +76,7 @@ public class CollegueService {
 	}
 
 	/**
-	 * Méthode pour ajouter un collègue dans la Map de tous les collègues de
-	 * l'application.
+	 * Méthode pour ajouter un collègue.
 	 * 
 	 * @param collegueAAjouter : Collegue le collègue à ajouter
 	 * @return : Collegue le collègue ajouté
@@ -96,48 +93,50 @@ public class CollegueService {
             LOGGER.info("collegue à ajouter après validation = " + collegueAAjouter);
 			collegueAAjouter.setMatricule(UUID.randomUUID().toString());
 			collegueRepository.save(collegueAAjouter);
-			return collegueAAjouter;
+		} else {
+			throw new CollegueInvalideException("ERREUR : Au moins une des données du collègue hors format");
 		}
-		return null;
+
+		return collegueAAjouter;
 	}
 
 	/**
-	 * Méthode pour modifier l'email d'un collègue de la Map stockant tous les
-	 * collègues.
+	 * Méthode pour modifier l'email d'un collègue.
 	 * 
 	 * @param matricule : String le matricule du collègue
 	 * @param email     : String le nouvel email du collègue
 	 * @return : Collegue le collègue modifié
 	 */
-	public Collegue modifierEmail(String matricule, String email) {
+	public Collegue modifierEmail(String matricule, String email) throws CollegueInvalideException {
 
 		Collegue collegue = rechercherParMatricule(matricule);
-		if (email.length() < 3 || !email.contains("@")) {
-			throw new CollegueInvalideException("ERREUR : Email incorrect (il ne respecte pas le format).");
-		} else {
+
+		if(collegueValidator.isFormatEmailCorrect(email)) {
 			collegue.setEmail(email);
+			collegueRepository.save(collegue);
+		} else {
+			throw new CollegueInvalideException("ERREUR : Email incorrect (il ne respecte pas le format).");
 		}
 
 		return collegue;
 	}
 
 	/**
-	 * Méthode pour modifier l'url de la photo d'un collègue de la Map stockant tous
-	 * les collègues.
+	 * Méthode pour modifier l'url de la photo d'un collègue.
 	 * 
 	 * @param matricule : String matricule du collègue
 	 * @param photoUrl  : String le nouvel url de la photo du collègue
 	 * @return : Collegue le collègue amodifié
 	 */
-	public Collegue modifierPhotoUrl(String matricule, String photoUrl) {
+	public Collegue modifierPhotoUrl(String matricule, String photoUrl) throws CollegueInvalideException {
 
 		Collegue collegue = rechercherParMatricule(matricule);
 
-		if (!photoUrl.startsWith("http")) {
-			throw new CollegueInvalideException("ERREUR : Url de la photo incorrecte (elle ne commence pas par http).");
-		} else {
+		if(collegueValidator.isFormatUrlPhotoCorrect(photoUrl)) {
 			collegue.setPhotoUrl(photoUrl);
-            collegueRepository.save(collegue);
+			collegueRepository.save(collegue);
+		} else {
+			throw new CollegueInvalideException("ERREUR : Url de la photo incorrecte (elle ne commence pas par http).");
 		}
 
 		return collegue;

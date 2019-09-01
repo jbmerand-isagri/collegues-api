@@ -14,7 +14,7 @@ import java.util.UUID;
 public class StartupDataInit {
 
     @Autowired
-    CollegueRepository collegueRepository;
+    private CollegueRepository collegueRepository;
 
     // La méthode init va être invoquée au démarrage de l'application.
     @EventListener(ContextRefreshedEvent.class)
@@ -22,7 +22,7 @@ public class StartupDataInit {
 
         Collegue collegue1 = new Collegue(UUID.randomUUID().toString(), "Dupuis", "James, Arnold",
                 "james.dupuis@mail.com", LocalDate.of(1988, 06, 25), "https://dsggfd.com");
-        Collegue collegue2 = new Collegue(UUID.randomUUID().toString(), "durand", "Oliver, Pierre",
+        Collegue collegue2 = new Collegue(UUID.randomUUID().toString(), "Durand", "Oliver, Pierre",
                 "oliver.durand@mail.com", LocalDate.of(1980, 02, 29), "https://dsggfd.com");
         Collegue collegue3 = new Collegue(UUID.randomUUID().toString(), "Monk", "Bernard", "bernard.monk@mail.com",
                 LocalDate.of(1990, 12, 04), "https://dsggfd.com");
