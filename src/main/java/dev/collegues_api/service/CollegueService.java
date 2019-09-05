@@ -3,6 +3,7 @@ package dev.collegues_api.service;
 import dev.collegues_api.exception.CollegueInvalideException;
 import dev.collegues_api.exception.CollegueNonTrouveException;
 import dev.collegues_api.model.Collegue;
+import dev.collegues_api.model.Utilisateur;
 import dev.collegues_api.repository.CollegueRepository;
 import dev.collegues_api.utils.CollegueValidator;
 import org.slf4j.Logger;
@@ -73,6 +74,11 @@ public class CollegueService {
             throw new CollegueNonTrouveException("ERREUR : Ce matricule correspond à aucun collègue.");
         }
         return collegue;
+    }
+
+    public Collegue rechercherCollegueParUtilisateur(Utilisateur utilisateur) {
+        return collegueRepository.findByUtilisateur(utilisateur).orElseThrow(() -> new CollegueNonTrouveException(
+                "ERREUR : aucun collegue trouvé pour cet utilisateur."));
     }
 
     /**

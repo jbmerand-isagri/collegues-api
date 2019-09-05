@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class Collegue implements Serializable {
 
 	@Id
-	@Column(name="col_matricule")
+	@Column(name="col_matricule", unique = true)
 	private String matricule;
 	@Column(name="col_nom")
 	private String nom;
@@ -24,6 +24,9 @@ public class Collegue implements Serializable {
 	private LocalDate dateDeNaissance;
 	@Column(name="col_photo_url")
 	private String photoUrl;
+	@OneToOne
+	@JoinColumn(name = "col_utilisateur_id")
+	private Utilisateur utilisateur;
 
 	/**
 	 * Constructor
@@ -70,6 +73,17 @@ public class Collegue implements Serializable {
 		this.email = email;
 		this.dateDeNaissance = dateDeNaissance;
 		this.photoUrl = photoUrl;
+	}
+
+	public Collegue(String matricule, String nom, String prenoms, String email, LocalDate dateDeNaissance,
+					String photoUrl, Utilisateur utilisateur) {
+		this.matricule = matricule;
+		this.nom = nom;
+		this.prenoms = prenoms;
+		this.email = email;
+		this.dateDeNaissance = dateDeNaissance;
+		this.photoUrl = photoUrl;
+		this.utilisateur = utilisateur;
 	}
 
 	/**
@@ -186,4 +200,11 @@ public class Collegue implements Serializable {
 				+ ", dateDeNaissance=" + dateDeNaissance + ", photoUrl=" + photoUrl + "]";
 	}
 
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
 }
