@@ -1,7 +1,7 @@
 package dev.collegues_api.controller;
 
+import dev.collegues_api.controller.dto.CollegueDto;
 import dev.collegues_api.controller.dto.CollegueDtoGet;
-import dev.collegues_api.controller.dto.CollegueDtoPatch;
 import dev.collegues_api.controller.dto.CollegueDtoPost;
 import dev.collegues_api.exception.CollegueInvalideException;
 import dev.collegues_api.exception.CollegueNonTrouveException;
@@ -14,8 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -29,18 +31,10 @@ public class CollegueController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(CollegueController.class);
 
-    /**
-     * collegueService : CollegueService
-     */
     private CollegueService collegueService;
 
     private UtilisateurService utilisateurService;
 
-    /**
-     * Constructor
-     *
-     * @param collegueService
-     */
     @Autowired
     public CollegueController(CollegueService collegueService, UtilisateurService utilisateurService) {
         super();
@@ -59,6 +53,7 @@ public class CollegueController {
     @RequestMapping(path = "/collegues", method = RequestMethod.GET)
     @ResponseBody
     public List<String> reqParamNom(@RequestParam String nom) {
+        LOGGER.info("reqParamNom() lancé");
 
         List<Collegue> listeCollegues = collegueService.rechercherParNom(nom);
 
@@ -75,8 +70,9 @@ public class CollegueController {
      */
     @RequestMapping(path = "/collegues/{matricule}", method = RequestMethod.GET)
     @ResponseBody
-    public CollegueDtoGet reqMatricule(@PathVariable String matricule) {
-        return new CollegueDtoGet(collegueService.rechercherParMatricule(matricule));
+    public CollegueDto reqMatricule(@PathVariable String matricule) {
+        LOGGER.info("reqMatricule() lancé");
+        return new CollegueDto(collegueService.rechercherParMatricule(matricule));
     }
 
     /**
@@ -110,14 +106,22 @@ public class CollegueController {
      */
     @PostMapping("/collegues")
     @ResponseBody
-    public ResponseEntity<CollegueDtoGet> reqAjoutCollegue(@RequestBody CollegueDtoPost collegueDto) {
+    public ResponseEntity<CollegueDtoGet> reqAjoutCollegue(@Valid @RequestBody CollegueDtoPost collegueDto,
+                                                           Errors errors) throws CollegueInvalideException {
         LOGGER.info("reqAjoutCollegue() lancé");
+
+        if(errors.hasErrors()) {
+            throw new CollegueInvalideException("ERREUR : au moins un des champs est mal renseigné : \n" + errors.getAllErrors());
+        }
+
         List<String> roles = new ArrayList<>();
         if(collegueDto.getRole().equalsIgnoreCase("USER")) {
             roles.add(new String("USER"));
         } else if(collegueDto.getRole().equalsIgnoreCase("ADMIN")) {
             roles.add(new String("USER"));
             roles.add(new String("ADMIN"));
+        } else {
+            throw new CollegueInvalideException("ERREUR : le rôle doit être ADMIN ou USER");
         }
         Utilisateur utilisateur = new Utilisateur(collegueDto.getIdentifiant(), collegueDto.getMotDePasse(), roles);
         utilisateurService.ajouterUnUtilisateur(utilisateur);
@@ -137,9 +141,9 @@ public class CollegueController {
      */
     @PatchMapping("/collegues/{matricule}")
     @ResponseBody
-    public CollegueDtoPatch reqModifierMailEtOuPhotoUrl(@RequestBody Collegue collegue,
-                                              @PathVariable("matricule") String matricule) {
-
+    public CollegueDto reqModifierMailEtOuPhotoUrl(@RequestBody Collegue collegue,
+                                                   @PathVariable("matricule") String matricule) {
+        LOGGER.info("reqModifierMailEtOuPhotoUrl() lancé");
         if (collegue.getEmail() != null) {
             collegueService.modifierEmail(matricule, collegue.getEmail());
         }
@@ -147,7 +151,7 @@ public class CollegueController {
             collegueService.modifierPhotoUrl(matricule, collegue.getPhotoUrl());
         }
 
-        return new CollegueDtoPatch(collegueService.rechercherParMatricule(matricule));
+        return new CollegueDto(collegueService.rechercherParMatricule(matricule));
     }
 
 }

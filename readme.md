@@ -74,6 +74,14 @@ Réponse en cas d'échec :
 
 code `404`
 
+```
+ERREUR : au moins un des champs est mal renseigné. 
+Field error in object 'collegueDtoPost' on field 'motDePasse': rejected value [gb]; codes [Size.collegueDtoPost.motDePasse,Size.motDePasse,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [collegueDtoPost.motDePasse,motDePasse]; arguments []; default message [motDePasse],32,6]; default message [le mot de passe doit comporter de 6 à 32 caractères]
+```
+```
+ERREUR : le rôle doit être ADMIN ou USER
+```
+
 ## Consulter les informations du profil actuellement connecté
 
 Requête :

@@ -2,7 +2,7 @@ package dev.collegues_api.controller.dto;
 
 import dev.collegues_api.model.Collegue;
 
-public class CollegueDtoPatch {
+public class CollegueDto {
 
     private String matricule;
     private String nom;
@@ -10,7 +10,7 @@ public class CollegueDtoPatch {
     private String photoUrl;
     private String email;
 
-    public CollegueDtoPatch(Collegue collegue) {
+    public CollegueDto(Collegue collegue) {
         this.matricule = collegue.getMatricule();
         this.nom = collegue.getNom();
         this.prenoms = collegue.getPrenoms();

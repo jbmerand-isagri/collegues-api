@@ -1,16 +1,29 @@
 package dev.collegues_api.controller.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class CollegueDtoPost {
 
+    @NotBlank(message = "nom manquant")
     private String nom;
+    @NotBlank(message = "prenoms non renseignés")
     private String prenoms;
+    @NotBlank(message = "email manquant")
     private String email;
+    @NotNull(message = "date de naissance manquante")
     private LocalDate dateDeNaissance;
+    @NotBlank(message = "url de la photo manquante")
     private String photoUrl;
+    @NotBlank(message = "identifiant manquant")
+    @Size(min = 6, max = 32, message = "l'identifiant doit comportant de 6 à 32 caractères")
     private String identifiant;
+    @NotBlank(message = "mot de passe manquant")
+    @Size(min = 6, max = 32, message = "le mot de passe doit comporter de 6 à 32 caractères")
     private String motDePasse;
+    @NotBlank(message = "role manquant")
     private String role;
 
     public CollegueDtoPost(String nom, String prenoms, String email, LocalDate dateDeNaissance,
