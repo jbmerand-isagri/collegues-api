@@ -35,8 +35,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/auth").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/collegues").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PATCH, "/collegues").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/collegues/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PATCH, "/collegues/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 // accès à la console h2 sans authentification
                 .and().headers().frameOptions().disable()

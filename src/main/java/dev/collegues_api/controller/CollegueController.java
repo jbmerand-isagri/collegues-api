@@ -1,6 +1,7 @@
 package dev.collegues_api.controller;
 
 import dev.collegues_api.controller.dto.CollegueDtoGet;
+import dev.collegues_api.controller.dto.CollegueDtoPatch;
 import dev.collegues_api.controller.dto.CollegueDtoPost;
 import dev.collegues_api.exception.CollegueInvalideException;
 import dev.collegues_api.exception.CollegueNonTrouveException;
@@ -136,8 +137,8 @@ public class CollegueController {
      */
     @PatchMapping("/collegues/{matricule}")
     @ResponseBody
-    public CollegueDtoGet partialUpdateName(@RequestBody Collegue collegue,
-                                      @PathVariable("matricule") String matricule) {
+    public CollegueDtoPatch reqModifierMailEtOuPhotoUrl(@RequestBody Collegue collegue,
+                                              @PathVariable("matricule") String matricule) {
 
         if (collegue.getEmail() != null) {
             collegueService.modifierEmail(matricule, collegue.getEmail());
@@ -146,7 +147,7 @@ public class CollegueController {
             collegueService.modifierPhotoUrl(matricule, collegue.getPhotoUrl());
         }
 
-        return new CollegueDtoGet(collegueService.rechercherParMatricule(matricule));
+        return new CollegueDtoPatch(collegueService.rechercherParMatricule(matricule));
     }
 
 }

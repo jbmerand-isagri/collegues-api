@@ -36,10 +36,6 @@ Code `200`
 ```
 ```
 
-## Consulter la base de données h2
-
-[GET] https://jbmerand-collegues-api.herokuapp.com/h2-console
-
 ## Ajouter un collègue
 
 Requête :
@@ -136,3 +132,49 @@ Code `200`
     ]
 }
 ```
+
+Réponse en cas d'échec :
+
+Code `404`
+
+```
+ERREUR : Ce matricule correspond à aucun collègue.
+```
+
+## Modifier l'email et/ou l'url de la photo d'un collègue
+
+Requête :
+
+[PATCH] https://jbmerand-collegues-api.herokuapp.com/collegues/{matricule}
+
+```JSON
+{
+	"email" : "dupuis.james@globalmail.com",
+	"photoUrl" : "https://randomuser.me/dupuis.jpg"
+}
+```
+
+Réponse en cas de réussite :
+
+Code `200`
+
+```JSON
+{
+    "matricule": "be27ddbc-798c-4f80-bfa5-9acfe233c76d",
+    "nom": "Dupuis",
+    "prenoms": "James, Arnold",
+    "photoUrl": "https://randomuser.me/dupuis.jpg",
+    "email": "dupuis.james@globalmail.com"
+}
+```
+
+Réponse en cas d'échec :
+
+Code `404`
+
+```
+ERREUR : Url de la photo incorrecte (elle ne commence pas par http).
+```
+```
+ERREUR : Email incorrect (il ne respecte pas le format).
+``
