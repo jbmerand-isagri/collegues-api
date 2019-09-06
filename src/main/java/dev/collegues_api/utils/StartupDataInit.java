@@ -37,7 +37,8 @@ public class StartupDataInit {
                 "ROLE_USER")));
         utilisateurRepository.save(new Utilisateur("u4", passwordEncoder.encode("pass4"), Arrays.asList("ROLE_ADMIN",
                 "ROLE_USER")));
-        utilisateurRepository.save(new Utilisateur("u5", passwordEncoder.encode("pass5"), Arrays.asList("ROLE_ADMIN",
+        utilisateurRepository.save(new Utilisateur("u5", passwordEncoder.encode("pass5"), Arrays.asList(
+                "ROLE_ADMIN",
                 "ROLE_USER")));
 
         Collegue collegue1 = new Collegue(UUID.randomUUID().toString(), "Dupuis", "James, Arnold",
@@ -52,7 +53,8 @@ public class StartupDataInit {
                 "eleonore.martin@mail.com", LocalDate.of(1978, 3, 12), "https://dsggfd.com",
                 utilisateurRepository.findByIdentifiant("u4").get());
         Collegue collegue5 = new Collegue(UUID.randomUUID().toString(), "Durand", "Didier", "didier.durand@mail.com",
-                LocalDate.of(1965, 11, 15), "https://dsggfd.com", utilisateurRepository.findByIdentifiant("u5").get());
+                LocalDate.of(1965, 11, 15), "https://dsggfd.com",
+                utilisateurRepository.findByIdentifiant("u5").get());
 
         collegueRepository.save(collegue1);
         collegueRepository.save(collegue2);

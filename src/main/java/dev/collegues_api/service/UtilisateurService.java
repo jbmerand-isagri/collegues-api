@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UtilisateurService {
 
@@ -24,6 +26,11 @@ public class UtilisateurService {
     public void ajouterUnUtilisateur(Utilisateur utilisateur) {
         utilisateur.setMotDePasse(passwordEncoder.encode(utilisateur.getMotDePasse()));
         utilisateurRepository.save(utilisateur);
+    }
+
+    public Boolean isIdentifiantExistant(String identifiant) {
+        Optional<Utilisateur> opUtilisateur = utilisateurRepository.findByIdentifiant(identifiant);
+        return opUtilisateur.isPresent();
     }
 
 }

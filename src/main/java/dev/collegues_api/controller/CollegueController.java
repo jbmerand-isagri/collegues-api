@@ -113,13 +113,15 @@ public class CollegueController {
         if(errors.hasErrors()) {
             throw new CollegueInvalideException("ERREUR : au moins un des champs est mal renseigné : \n" + errors.getAllErrors());
         }
-
+        if(utilisateurService.isIdentifiantExistant(collegueDto.getIdentifiant())) {
+            throw new CollegueInvalideException("ERREUR : Un collègue porte déjà cet identifiant.");
+        }
         List<String> roles = new ArrayList<>();
         if(collegueDto.getRole().equalsIgnoreCase("USER")) {
-            roles.add(new String("USER"));
+            roles.add(new String("ROLE_USER"));
         } else if(collegueDto.getRole().equalsIgnoreCase("ADMIN")) {
-            roles.add(new String("USER"));
-            roles.add(new String("ADMIN"));
+            roles.add(new String("ROLE_USER"));
+            roles.add(new String("ROLE_ADMIN"));
         } else {
             throw new CollegueInvalideException("ERREUR : le rôle doit être ADMIN ou USER");
         }
