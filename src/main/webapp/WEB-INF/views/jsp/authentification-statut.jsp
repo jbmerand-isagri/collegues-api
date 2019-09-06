@@ -1,0 +1,1 @@
+Utilisateur connecte = ${utilisateurConnecte}

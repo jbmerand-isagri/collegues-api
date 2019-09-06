@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable(); // désactive protection CSRF (non utilisé dans cadre web API)
         http.authorizeRequests()
                 .antMatchers("/auth").permitAll()
+                .antMatchers("/auth-statut").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/collegues/**").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PATCH, "/collegues/**").hasRole("ADMIN")
