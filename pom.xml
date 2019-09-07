@@ -11,7 +11,7 @@
 	<groupId>dev</groupId>
 	<artifactId>collegues-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+<!--	<packaging>war</packaging>-->
 	<name>collegues-api</name>
 	<description>collegues-api tp sur spring</description>
 
@@ -68,17 +68,17 @@
 		</dependency>
 
 		<!-- Support du templating JSP -->
-		<dependency>
+<!--		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
-		</dependency>
+		</dependency>-->
 
 		<!-- Support de JSTL -->
-		<dependency>
+<!--		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-		</dependency>
+		</dependency>-->
 
 	</dependencies>
 
