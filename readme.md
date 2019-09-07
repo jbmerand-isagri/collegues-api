@@ -36,14 +36,6 @@ Code `200`
 ```
 ```
 
---> Pour voir une page d'authentification (non fonctionnel) :
-
-[GET] https://jbmerand-collegues-api.herokuapp.com/auth
-
---> Pour voir une page donnant des informations sur l'utilisateur actuellement authentifié :
-
-[GET] https://jbmerand-collegues-api.herokuapp.com/auth-statut
-
 ## Ajouter un collègue
 
 Requête :
