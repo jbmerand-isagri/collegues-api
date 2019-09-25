@@ -42,18 +42,18 @@ public class StartupDataInit {
                 "ROLE_USER")));
 
         Collegue collegue1 = new Collegue(UUID.randomUUID().toString(), "Dupuis", "James, Arnold",
-                "james.dupuis@mail.com", LocalDate.of(1988, 6, 25), "https://dsggfd.com",
+                "james.dupuis@mail.com", LocalDate.of(1988, 6, 25), "https://media.istockphoto.com/photos/factory-worker-controlling-production-picture-id930963632?k=6&m=930963632&s=612x612&w=0&h=9-qBlfH1bGiVD7r1IJoYtMM-3LI1_P5y_09yankChXc=",
                 utilisateurRepository.findByIdentifiant("u1").get());
         Collegue collegue2 = new Collegue(UUID.randomUUID().toString(), "Durand", "Oliver, Pierre",
-                "oliver.durand@mail.com", LocalDate.of(1980, 2, 29), "https://dsggfd.com",
+                "oliver.durand@mail.com", LocalDate.of(1980, 2, 29), "https://pedreirao.com.br/wp-content/uploads/2014/06/8-dicas-engenheiro-civil-arquiteto-recem-formado-pedreirao.jpg",
                 utilisateurRepository.findByIdentifiant("u2").get());
         Collegue collegue3 = new Collegue(UUID.randomUUID().toString(), "Monk", "Bernard", "bernard.monk@mail.com",
-                LocalDate.of(1990, 12, 4), "https://dsggfd.com", utilisateurRepository.findByIdentifiant("u3").get());
+                LocalDate.of(1990, 12, 4), "https://www.greateasternlife.com/content/GreatEastern/my/en/index/corporate-solutions/general-insurance/foreign-worker-hospitalisation-and-surgical-scheme/_jcr_content/contentPar2/image.img.jpg/1495163981442.jpg", utilisateurRepository.findByIdentifiant("u3").get());
         Collegue collegue4 = new Collegue(UUID.randomUUID().toString(), "Martin", "Eléonore, Alice",
-                "eleonore.martin@mail.com", LocalDate.of(1978, 3, 12), "https://dsggfd.com",
+                "eleonore.martin@mail.com", LocalDate.of(1978, 3, 12), "https://www.fairobserver.com/wp-content/uploads/2017/08/Factory-workers-America-news-manufacturing-jobs-world-news-1.jpg",
                 utilisateurRepository.findByIdentifiant("u4").get());
         Collegue collegue5 = new Collegue(UUID.randomUUID().toString(), "Durand", "Didier", "didier.durand@mail.com",
-                LocalDate.of(1965, 11, 15), "https://dsggfd.com",
+                LocalDate.of(1965, 11, 15), "https://ak2.picdn.net/shutterstock/videos/21399202/thumb/1.jpg",
                 utilisateurRepository.findByIdentifiant("u5").get());
 
         collegueRepository.save(collegue1);
