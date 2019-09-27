@@ -76,6 +76,23 @@ public class CollegueController {
     }
 
     /**
+     * Contrôleur envoyant une réponse 200 ou 404 en fonction de la présence ou non de l'email en base de données.
+     * @param email
+     * @return 200 si l'email n'est pas utilisé dans l'API par un utilisateur, 404 si utilisé
+     */
+    @RequestMapping(path = "/collegues/emails/{email}", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Boolean> reqEmail(@PathVariable String email) {
+        LOGGER.info("reqEmail() lancé");
+        if(collegueService.rechercherEmailExiste(email)) {
+            return ResponseEntity.status(404).body(false);
+        } else {
+            return ResponseEntity.status(200).body(true);
+        }
+
+    }
+
+    /**
      * Gestionnaire de l'exception CollegueNonTrouveException
      *
      * @param e : CollegueNonTrouveException

@@ -76,6 +76,12 @@ public class CollegueService {
         return collegue;
     }
 
+    public Boolean rechercherEmailExiste(String emailRecherche) {
+        LOGGER.info("rechercherEmailExiste() lancée");
+        LOGGER.info("paramètre utilisé = " + emailRecherche);
+        return collegueRepository.findByEmailIgnoreCase(emailRecherche).isPresent();
+    }
+
     public Collegue rechercherCollegueParUtilisateur(Utilisateur utilisateur) {
         return collegueRepository.findByUtilisateur(utilisateur).orElseThrow(() -> new CollegueNonTrouveException(
                 "ERREUR : aucun collegue trouvé pour cet utilisateur."));
