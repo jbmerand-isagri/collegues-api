@@ -3,6 +3,7 @@ package dev.collegues_api.controller;
 import dev.collegues_api.controller.dto.CollegueDto;
 import dev.collegues_api.controller.dto.CollegueDtoGet;
 import dev.collegues_api.controller.dto.CollegueDtoPost;
+import dev.collegues_api.controller.dto.ColleguePhotosDto;
 import dev.collegues_api.exception.CollegueInvalideException;
 import dev.collegues_api.exception.CollegueNonTrouveException;
 import dev.collegues_api.model.Collegue;
@@ -90,6 +91,13 @@ public class CollegueController {
             return ResponseEntity.status(200).body(true);
         }
 
+    }
+
+    @RequestMapping(path = "/collegues/photos", method = RequestMethod.GET)
+    @ResponseBody
+    public List<ColleguePhotosDto> reqGetPhotos() {
+        LOGGER.info("reqGetPhotos() lancé");
+        return collegueService.recupererPhotoUrlCollegues();
     }
 
     /**

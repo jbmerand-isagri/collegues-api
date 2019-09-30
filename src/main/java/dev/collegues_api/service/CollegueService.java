@@ -1,5 +1,6 @@
 package dev.collegues_api.service;
 
+import dev.collegues_api.controller.dto.ColleguePhotosDto;
 import dev.collegues_api.exception.CollegueInvalideException;
 import dev.collegues_api.exception.CollegueNonTrouveException;
 import dev.collegues_api.model.Collegue;
@@ -156,4 +157,7 @@ public class CollegueService {
         return collegue;
     }
 
+    public List<ColleguePhotosDto> recupererPhotoUrlCollegues() {
+        return collegueRepository.findPhotosAndMatricules();
+    }
 }
